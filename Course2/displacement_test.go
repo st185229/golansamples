@@ -1,4 +1,9 @@
 // TestSum for testing
+package main
+
+import "testing"
+
+// TestSum
 func TestSum(t *testing.T) {
 
 	fn := GenDisplaceFn(10, 2, 1)
