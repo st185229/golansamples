@@ -76,13 +76,17 @@ func MakeIntSliceFromString(value string) []int {
 	return ConvertStringSlice2IntegerSlice(results)
 }
 
-//ConvertStringSlice2IntegerSlice convert string array to integer array 
+//ConvertStringSlice2IntegerSlice convert string array to integer array
 func ConvertStringSlice2IntegerSlice(scanLine []string) []int {
 	intSlice := make([]int, 0, 10)
 	for _, i := range scanLine {
 		j, err := strconv.Atoi(i)
 		if err != nil {
-			panic(err)
+
+			fmt.Println("Skipping invalid input error :- ")
+			fmt.Println(err)
+			//Skip the invalid entry
+			continue
 		}
 		intSlice = append(intSlice, j)
 	}
@@ -94,14 +98,18 @@ func main() {
 	var inputIntegers string = ""
 	//Request user to input
 	fmt.Print("Please enter maximum 10 integers delimited with space e.g. 2 212 3001 14 -501 7800 9932 33 45 106 : ")
-    //Read
+	//Read
 	scanner := bufio.NewScanner(os.Stdin)
 	if scanner.Scan() {
 		inputIntegers = scanner.Text()
 	}
+	if err := scanner.Err(); err != nil {
+		fmt.Fprintln(os.Stderr, "shouldn't see an error scanning a string")
+		return
+	}
 	//Convert the string to integer slice
 	intSlice := MakeIntSliceFromString(inputIntegers)
-    //Bubble Sort
+	//Bubble Sort
 	BubbleSort(intSlice)
 	// Print the sorted array
 	fmt.Print("Sorted Array :- ")
