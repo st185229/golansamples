@@ -55,11 +55,17 @@ type Animal struct {
 
 // SetTyp - Type of animal
 func (a *Animal) SetTyp(sp string) {
+	if a == nil {
+		return
+	}
 	a.typ = sp
 }
 
 // Eat give what does the animal eat
 func (a *Animal) Eat() string {
+	if a == nil {
+		return ""
+	}
 	switch typ := a.typ; typ {
 	case "cow":
 		a.food = "grass"
@@ -75,6 +81,9 @@ func (a *Animal) Eat() string {
 
 // Move - how does this animal move
 func (a *Animal) Move() string {
+	if a == nil {
+		return ""
+	}
 	switch typ := a.typ; typ {
 	case "cow":
 		a.locomotion = "walk"
@@ -90,6 +99,9 @@ func (a *Animal) Move() string {
 
 // Speak - How do the animal communicate or speak
 func (a *Animal) Speak() string {
+	if a == nil {
+		return ""
+	}
 	switch typ := a.typ; typ {
 	case "cow":
 		a.noise = "moo"
