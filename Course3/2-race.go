@@ -7,26 +7,30 @@
 
 package main
 
-import "fmt"
-import "time"
+import (
+	"fmt"
+	"sync"
+	"time"
+)
 
-var integer int
-
-func increment() {
-  integer++
-  fmt.Println(integer)
-}
-
-func decrement() {
-  integer--
-  fmt.Println(integer)
+func increment(integer *int64, wg *sync.WaitGroup) {
+	(*integer)++
+	fmt.Println(*integer)
+	time.Sleep(1 * time.Second)
+	wg.Done()
 }
 
 func main() {
-  integer = 0
-  for j:=0; j<10; j++{
-    go increment()
-    go decrement()
-  }
-  time.Sleep(10 * time.Second)
+	var integer int64 = 0
+	var wg sync.WaitGroup
+
+	for j := 0; j < 10; j++ {
+		wg.Add(0)
+
+		go increment(&integer, &wg)
+		wg.Wait()
+
+	}
+
+	fmt.Println(integer)
 }
