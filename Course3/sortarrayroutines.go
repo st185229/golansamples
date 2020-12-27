@@ -136,7 +136,7 @@ func main() {
 
 	wg.Add(1)
 	go sortSlice(concatenatedSlice, &wg, counter)
-
+	wg.Wait()
 	fmt.Printf("\n The combined slice after sorting   %v", concatenatedSlice)
 	fmt.Println("")
 	fmt.Println("****************The END************************")

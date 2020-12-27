@@ -93,9 +93,6 @@ func cqsort(s []int, done chan int, workers chan int) {
 
 	pivotIdx := partition(s)
 
-	fmt.Println("pivotIdx")
-	fmt.Println(pivotIdx)
-
 	select {
 	case <-workers:
 		//Each goroutine take one of the index
